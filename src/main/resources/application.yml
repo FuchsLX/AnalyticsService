@@ -4,3 +4,15 @@ spring:
 
 server:
   port: 8081
+
+database:
+  destination:
+    url: jdbc:postgresql://localhost:5432/web7_2024_analytics
+  source:
+    url: jdbc:postgresql://localhost:5432/web7_2024
+
+logging:
+  level:
+    org:
+      ecommerce:
+        analyticsservice: DEBUG
