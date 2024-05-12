@@ -5,6 +5,7 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.ecommerce.analyticsservice.models.Customer;
+import org.ecommerce.analyticsservice.services.ProductAnalyticsService;
 import org.ecommerce.analyticsservice.services.TestCustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +25,12 @@ public class DemoController {
     private final SparkSession sparkSession;
     private static final Logger logger = LoggerFactory.getLogger(DemoController.class);
     private final TestCustomerService customerService;
+    private final ProductAnalyticsService productAnalyticsService;
 
     @GetMapping("/test")
     public ResponseEntity<String> test() {
         logger.info("test GET method");
+        productAnalyticsService.categoryTest();
         return ResponseEntity.ok("Hello World");
     }
 

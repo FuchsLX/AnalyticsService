@@ -1,4 +1,4 @@
-package org.ecommerce.analyticsservice.filter;
+package org.ecommerce.analyticsservice.services.filter;
 
 
 import org.apache.spark.api.java.function.FilterFunction;
@@ -22,6 +22,4 @@ public class RoleFilter  {
                     value.getAs("name").toString().equalsIgnoreCase("admin");
         }
     }
-
-
 }

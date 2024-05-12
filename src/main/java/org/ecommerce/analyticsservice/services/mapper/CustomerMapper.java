@@ -1,10 +1,10 @@
-package org.ecommerce.analyticsservice.mapper;
+package org.ecommerce.analyticsservice.services.mapper;
 
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.sql.Row;
 import org.ecommerce.analyticsservice.models.Customer;
 
-public class CustomerMapper implements MapFunction<Row, Customer> {
+public final class CustomerMapper implements MapFunction<Row, Customer> {
 
     @Override
     public Customer call(Row row) throws Exception {

@@ -13,7 +13,7 @@ public class ApplicationConfig {
     public SparkConf sparkConf() {
         SparkConf sparkConf = new SparkConf();
         sparkConf.setAppName("Analytics Service");
-        sparkConf.setMaster("local");
+        sparkConf.setMaster("local[*]");
         return sparkConf;
     }
 
