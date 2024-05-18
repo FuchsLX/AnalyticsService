@@ -5,5 +5,5 @@ import org.apache.spark.sql.Row;
 import org.ecommerce.analyticsservice.constants.BaseTable;
 
 public interface LoadOperationUtil {
-    void save(Class<? extends BaseTable> table, Dataset<Row> df);
+    void save(String tableName, Dataset<Row> df);
 }

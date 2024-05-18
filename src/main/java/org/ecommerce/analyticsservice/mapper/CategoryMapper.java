@@ -1,4 +1,4 @@
-package org.ecommerce.analyticsservice.services.mapper;
+package org.ecommerce.analyticsservice.mapper;
 
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.sql.Row;
@@ -9,8 +9,8 @@ public final class CategoryMapper implements MapFunction<Row, Category> {
     @Override
     public Category call(Row value) throws Exception {
         return Category.builder()
-                .id(value.getAs("id"))
-                .parentId(value.getAs("parent_id"))
+                .id(value.getAs("category_id"))
+                .parentId(value.getAs("category_parent_id"))
                 .name(value.getAs("category_name"))
                 .build();
     }

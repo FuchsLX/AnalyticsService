@@ -8,8 +8,12 @@ server:
 database:
   destination:
     url: jdbc:postgresql://localhost:5432/web7_2024_analytics
+    username: postgres
+    password: 123456789
   source:
     url: jdbc:postgresql://localhost:5432/web7_2024
+    username: postgres
+    password: 123456789
 
 logging:
   level:
