@@ -20,22 +20,22 @@ public class ProductAnalyticsController {
     private final ProductAnalyticsService productAnalyticsService;
 
     @GetMapping(GET_RATING_WITH_ID_ROUTER)
-    public ResponseEntity<RatingDto> getRatingByProductId(@PathVariable("productId") String productId) {
+    public ResponseEntity<ProductRatingDto> getRatingByProductId(@PathVariable("productId") String productId) {
         try {
-            RatingDto ratingDto = productAnalyticsService.getRatingByProductId(productId);
-            return ResponseEntity.ok(ratingDto);
+            ProductRatingDto productRatingDto = productAnalyticsService.getRatingByProductId(productId);
+            return ResponseEntity.ok(productRatingDto);
         } catch (NotFoundException exception) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @GetMapping(GET_TOP_HIGHEST_RATING_AVG_ROUTER)
-    public ResponseEntity<List<RatingDto>> getTopHighestRatedProducts(@PathVariable("numRecords") int numRecords) {
+    public ResponseEntity<List<ProductRatingDto>> getTopHighestRatedProducts(@PathVariable("numRecords") int numRecords) {
         return ResponseEntity.ok(productAnalyticsService.getTopHighestRatedProducts(numRecords));
     }
 
     @GetMapping(GET_TOP_LOWEST_RATING_AVG_ROUTER)
-    public ResponseEntity<List<RatingDto>> getTopLowestRatedProducts(@PathVariable("numRecords") int numRecords) {
+    public ResponseEntity<List<ProductRatingDto>> getTopLowestRatedProducts(@PathVariable("numRecords") int numRecords) {
         return ResponseEntity.ok(productAnalyticsService.getTopLowestRatedProducts(numRecords));
     }
 

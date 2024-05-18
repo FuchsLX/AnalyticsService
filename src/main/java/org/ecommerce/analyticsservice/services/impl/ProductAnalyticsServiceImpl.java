@@ -28,7 +28,7 @@ public class ProductAnalyticsServiceImpl implements ProductAnalyticsService {
     private static final Logger logger = LoggerFactory.getLogger(ProductAnalyticsServiceImpl.class);
 
     @Override
-    public RatingDto getRatingByProductId(String productId) throws NotFoundException {
+    public ProductRatingDto getRatingByProductId(String productId) throws NotFoundException {
         Dataset<Row> ratingDf =  this.extractProductRatingDf()
                 .filter(col("product_id").equalTo(productId));
         if (ratingDf.isEmpty()) {
@@ -36,7 +36,7 @@ public class ProductAnalyticsServiceImpl implements ProductAnalyticsService {
         } else {
             Row ratingRow = ratingDf.first();
             if (ratingRow.getAs("rating_count") == null) {
-                return RatingDto.builder()
+                return ProductRatingDto.builder()
                         .productId(productId)
                         .productName(ratingRow.getAs("product_name"))
                         .oneStarRatingCount(0L)
@@ -48,7 +48,7 @@ public class ProductAnalyticsServiceImpl implements ProductAnalyticsService {
                         .ratingAvg((double) 0)
                         .build();
             } else {
-                return RatingDto.builder()
+                return ProductRatingDto.builder()
                         .productId(productId)
                         .productName(ratingRow.getAs("product_name"))
                         .oneStarRatingCount(ratingRow.getAs("one_star_rating_count"))
@@ -64,21 +64,21 @@ public class ProductAnalyticsServiceImpl implements ProductAnalyticsService {
     }
 
     @Override
-    public List<RatingDto> getTopHighestRatedProducts(int numRecords) {
+    public List<ProductRatingDto> getTopHighestRatedProducts(int numRecords) {
         return this.extractProductRatingDf()
                 .orderBy(col("rating_avg").desc())
                 .limit(numRecords)
-                .map(new RatingDtoMapper(), Encoders.bean(RatingDto.class))
+                .map(new ProductRatingDtoMapper(), Encoders.bean(ProductRatingDto.class))
                 .collectAsList();
     }
 
     @Override
-    public List<RatingDto> getTopLowestRatedProducts(int numRecords) {
+    public List<ProductRatingDto> getTopLowestRatedProducts(int numRecords) {
         return this.extractProductRatingDf()
-                .filter(col("rating_count").gt(1))
+                .filter(col("rating_count").gt(0))
                 .orderBy(col("rating_avg").asc())
                 .limit(numRecords)
-                .map(new RatingDtoMapper(), Encoders.bean(RatingDto.class))
+                .map(new ProductRatingDtoMapper(), Encoders.bean(ProductRatingDto.class))
                 .collectAsList();
     }
 

@@ -17,23 +17,23 @@ public class ScheduleTasks {
     private final CategoryAnalyticsJob categoryAnalyticsJob;
     private final TagAnalyticsJob tagAnalyticsJob;
 
-    @Scheduled(fixedDelay = 30000)
-    public void performOrderAnalyticsTasks() {
-        long t0 = System.currentTimeMillis();
-        logger.debug("START Order Analytics Job: ");
-        orderAnalyticsJob.start();
-        logger.debug("END Order Analytics Job: {}ms", System.currentTimeMillis() - t0);
-    }
+//    @Scheduled(fixedDelay = 30000)
+//    public void performOrderAnalyticsTasks() {
+//        long t0 = System.currentTimeMillis();
+//        logger.debug("START Order Analytics Job: ");
+//        orderAnalyticsJob.start();
+//        logger.debug("END Order Analytics Job: {}ms", System.currentTimeMillis() - t0);
+//    }
+//
+//    @Scheduled(fixedDelay = 30000)
+//    public void performProductAnalyticsTasks() {
+//        long t0 = System.currentTimeMillis();
+//        logger.debug("START Product Analytics Job: ");
+//        productAnalyticsJob.start();
+//        logger.debug("END Product Analytics Job: {}ms", System.currentTimeMillis() - t0);
+//    }
 
-    @Scheduled(fixedDelay = 30000)
-    public void performProductAnalyticsTasks() {
-        long t0 = System.currentTimeMillis();
-        logger.debug("START Product Analytics Job: ");
-        productAnalyticsJob.start();
-        logger.debug("END Product Analytics Job: {}ms", System.currentTimeMillis() - t0);
-    }
-
-    @Scheduled(fixedDelay = 30000)
+    @Scheduled(fixedDelay = 1800000)
     public void performCategoryAnalyticsTasks() {
         long t0 = System.currentTimeMillis();
         logger.debug("START Category Analytics Job:");
@@ -41,11 +41,11 @@ public class ScheduleTasks {
         logger.debug("END Category Analytics Job: {}ms", System.currentTimeMillis() - t0);
     }
 
-    @Scheduled(fixedDelay = 30000)
-    public void performTagAnalyticsTasks() {
-        long t0 = System.currentTimeMillis();
-        logger.debug("START Tag Analytics Job:");
-        tagAnalyticsJob.start();
-        logger.debug("END Tag Analytics Job: {}ms", System.currentTimeMillis() - t0);
-    }
+//    @Scheduled(fixedDelay = 30000)
+//    public void performTagAnalyticsTasks() {
+//        long t0 = System.currentTimeMillis();
+//        logger.debug("START Tag Analytics Job:");
+//        tagAnalyticsJob.start();
+//        logger.debug("END Tag Analytics Job: {}ms", System.currentTimeMillis() - t0);
+//    }
 }

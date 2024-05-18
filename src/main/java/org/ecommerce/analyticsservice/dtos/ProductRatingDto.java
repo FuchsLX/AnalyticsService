@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public final class RatingDto {
+public final class ProductRatingDto {
     private String productId;
     private String productName;
     private Double ratingAvg;
