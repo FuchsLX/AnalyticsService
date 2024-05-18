@@ -3,7 +3,7 @@ package org.ecommerce.analyticsservice.utils;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.types.StructType;
-import org.ecommerce.analyticsservice.constants.BaseTable;
+import org.ecommerce.analyticsservice.constants.table.BaseTable;
 
 import java.util.List;
 

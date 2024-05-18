@@ -1,4 +1,4 @@
-package org.ecommerce.analyticsservice.constants;
+package org.ecommerce.analyticsservice.constants.table;
 
 public final class CategoryTable extends BaseTable {
     public static final String SRC_NAME = "category";

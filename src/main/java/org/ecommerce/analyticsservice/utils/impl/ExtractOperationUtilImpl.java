@@ -5,14 +5,13 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.types.StructType;
-import org.ecommerce.analyticsservice.constants.BaseTable;
+import org.ecommerce.analyticsservice.constants.table.BaseTable;
 import org.ecommerce.analyticsservice.utils.ExtractOperationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Properties;
 

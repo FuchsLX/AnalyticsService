@@ -8,7 +8,7 @@ import org.apache.spark.sql.RowFactory;
 import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
-import org.ecommerce.analyticsservice.constants.*;
+import org.ecommerce.analyticsservice.constants.table.*;
 import org.ecommerce.analyticsservice.jobs.CategoryAnalyticsJob;
 import org.ecommerce.analyticsservice.models.Category;
 import org.ecommerce.analyticsservice.mapper.CategoryMapper;

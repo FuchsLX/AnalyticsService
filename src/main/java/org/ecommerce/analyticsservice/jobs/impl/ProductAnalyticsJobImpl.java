@@ -3,7 +3,7 @@ package org.ecommerce.analyticsservice.jobs.impl;
 import lombok.RequiredArgsConstructor;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.ecommerce.analyticsservice.constants.*;
+import org.ecommerce.analyticsservice.constants.table.*;
 import org.ecommerce.analyticsservice.jobs.ProductAnalyticsJob;
 import org.ecommerce.analyticsservice.utils.ExtractOperationUtil;
 import org.ecommerce.analyticsservice.utils.LoadOperationUtil;

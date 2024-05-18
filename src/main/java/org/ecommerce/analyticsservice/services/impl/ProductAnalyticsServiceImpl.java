@@ -3,7 +3,7 @@ package org.ecommerce.analyticsservice.services.impl;
 import lombok.RequiredArgsConstructor;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.ecommerce.analyticsservice.constants.ProductTable;
+import org.ecommerce.analyticsservice.constants.table.ProductTable;
 import org.ecommerce.analyticsservice.dtos.RatingDto;
 import org.ecommerce.analyticsservice.exceptions.NotFoundException;
 import org.ecommerce.analyticsservice.services.ProductAnalyticsService;
