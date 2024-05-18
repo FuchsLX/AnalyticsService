@@ -11,7 +11,7 @@ public final class RatingDtoMapper implements MapFunction<Row, RatingDto> {
         return RatingDto.builder()
                 .productId(value.getAs("product_id"))
                 .productName(value.getAs("product_name"))
-                .ratingAvg(value.getAs("rating_avg"))
+                .ratingAvg( value.getAs("rating_avg"))
                 .ratingCount(value.getAs("rating_count"))
                 .oneStarRatingCount(value.getAs("one_star_rating_count"))
                 .twoStarRatingCount(value.getAs("two_star_rating_count"))

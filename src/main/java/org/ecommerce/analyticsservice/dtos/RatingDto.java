@@ -10,11 +10,11 @@ import lombok.*;
 public final class RatingDto {
     private String productId;
     private String productName;
-    private double ratingAvg;
-    private long ratingCount;
-    private long oneStarRatingCount;
-    private long twoStarRatingCount;
-    private long threeStarRatingCount;
-    private long fourStarRatingCount;
-    private long fiveStarRatingCount;
+    private Double ratingAvg;
+    private Long ratingCount;
+    private Long oneStarRatingCount;
+    private Long twoStarRatingCount;
+    private Long threeStarRatingCount;
+    private Long fourStarRatingCount;
+    private Long fiveStarRatingCount;
 }

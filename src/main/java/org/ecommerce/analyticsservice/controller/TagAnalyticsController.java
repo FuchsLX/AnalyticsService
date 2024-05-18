@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
 import static org.ecommerce.analyticsservice.constants.router.TagAnalyticsRouter.*;
 
 @RestController
