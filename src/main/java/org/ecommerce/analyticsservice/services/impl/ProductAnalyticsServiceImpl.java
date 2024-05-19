@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import scala.collection.JavaConverters;
 import scala.collection.Seq;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.apache.spark.sql.functions.*;
@@ -140,7 +141,7 @@ public class ProductAnalyticsServiceImpl implements ProductAnalyticsService {
         return this.extractProductWithOrderStatusCount()
                 .orderBy(col("completed_quantity").desc())
                 .limit(numRecords)
-                .map(new ProductWithOrderStatusCountDtoMapper(), Encoders.bean(ProductWithOrderStatusCountDto.class))
+                .map(new ProductWithOrderStatusCntDtoMapper(), Encoders.bean(ProductWithOrderStatusCountDto.class))
                 .collectAsList();
     }
 
@@ -152,10 +153,10 @@ public class ProductAnalyticsServiceImpl implements ProductAnalyticsService {
         return ProductWithOrderStatusRevDto.builder()
                 .productId(productId)
                 .productName(df.first().getAs("product_name"))
-                .completedTotalPrice(df.first().getAs("completed_total_price"))
-                .processingTotalPrice(df.first().getAs("processing_total_price"))
-                .deliveredTotalPrice(df.first().getAs("delivered_total_price"))
-                .cancelledTotalPrice(df.first().getAs("cancelled_total_price"))
+                .completedTotalPrice(((BigDecimal) df.first().getAs("completed_total_price")).doubleValue() )
+                .processingTotalPrice(((BigDecimal) df.first().getAs("processing_total_price")).doubleValue()   )
+                .deliveredTotalPrice(((BigDecimal) df.first().getAs("delivered_total_price")).doubleValue() )
+                .cancelledTotalPrice(((BigDecimal) df.first().getAs("cancelled_total_price")).doubleValue() )
                 .build();
     }
 
@@ -164,7 +165,7 @@ public class ProductAnalyticsServiceImpl implements ProductAnalyticsService {
         return this.extractProductWithOrderStatusRevDf()
                 .orderBy(col("completed_total_price").desc())
                 .limit(numRecords)
-                .map(new ProductWithOrderStatusTotalPriceDtoMapper(), Encoders.bean(ProductWithOrderStatusRevDto.class))
+                .map(new ProductWithOrderStatusRevDtoMapper(), Encoders.bean(ProductWithOrderStatusRevDto.class))
                 .collectAsList();
     }
 

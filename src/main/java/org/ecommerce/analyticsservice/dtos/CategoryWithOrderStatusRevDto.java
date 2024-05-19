@@ -12,8 +12,8 @@ import java.math.BigDecimal;
 public final class CategoryWithOrderStatusRevDto {
     private String categoryId;
     private String categoryName;
-    private BigDecimal completedTotalPrice;
-    private BigDecimal cancelledTotalPrice;
-    private BigDecimal processingTotalPrice;
-    private BigDecimal deliveredTotalPrice;
+    private double completedTotalPrice;
+    private double cancelledTotalPrice;
+    private double processingTotalPrice;
+    private double deliveredTotalPrice;
 }

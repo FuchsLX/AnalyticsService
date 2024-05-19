@@ -11,6 +11,6 @@ public final class CategoryWithBuyerCntDto {
     private String categoryId;
     private String categoryName;
     private Long uniqueBuyersCount;
-    private Integer repeatBuyersCount;
+    private Long repeatBuyersCount;
     private Double reorderRate;
 }

@@ -11,6 +11,6 @@ public final class ProductWithBuyerDto {
     private String productId;
     private String productName;
     private Long uniqueBuyersCount;
-    private Integer repeatBuyersCount;
+    private Long repeatBuyersCount;
     private Double reorderRate;
 }

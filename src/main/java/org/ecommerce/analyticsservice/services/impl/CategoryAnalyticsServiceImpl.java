@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.apache.spark.sql.functions.col;
@@ -135,10 +136,10 @@ public class CategoryAnalyticsServiceImpl implements CategoryAnalyticsService {
         return CategoryWithOrderStatusRevDto.builder()
                 .categoryId(categoryId)
                 .categoryName(df.first().getAs("category_name"))
-                .completedTotalPrice(df.first().getAs("completed_total_price"))
-                .processingTotalPrice(df.first().getAs("processing_total_price"))
-                .deliveredTotalPrice(df.first().getAs("delivered_total_price"))
-                .cancelledTotalPrice(df.first().getAs("cancelled_total_price"))
+                .completedTotalPrice(((BigDecimal) df.first().getAs("completed_total_price")).doubleValue())
+                .processingTotalPrice(((BigDecimal) df.first().getAs("processing_total_price")).doubleValue())
+                .deliveredTotalPrice(((BigDecimal) df.first().getAs("delivered_total_price")).doubleValue())
+                .cancelledTotalPrice(((BigDecimal) df.first().getAs("cancelled_total_price")).doubleValue())
                 .build();
     }
 

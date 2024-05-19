@@ -11,6 +11,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public final class OrderStatusRevenueDto {
     private String orderStatus;
-    private BigDecimal revenue;
-    private BigDecimal totalPriceBeforeDiscount;
+    private double revenue;
+    private double totalPriceBeforeDiscount;
 }
