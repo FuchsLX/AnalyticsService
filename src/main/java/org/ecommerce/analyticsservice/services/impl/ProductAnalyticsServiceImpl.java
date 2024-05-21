@@ -67,6 +67,7 @@ public class ProductAnalyticsServiceImpl implements ProductAnalyticsService {
     @Override
     public List<ProductRatingDto> getTopHighestRatedProducts(int numRecords) {
         return this.extractProductRatingDf()
+                .filter(col("rating_count").gt(0))
                 .orderBy(col("rating_avg").desc())
                 .limit(numRecords)
                 .map(new ProductRatingDtoMapper(), Encoders.bean(ProductRatingDto.class))
@@ -105,12 +106,14 @@ public class ProductAnalyticsServiceImpl implements ProductAnalyticsService {
         Dataset<Row> df = this.extractProductStdDf()
                 .filter(col("product_id").equalTo(productId));
         if (df.isEmpty()) throw new NotFoundException(String.format("No such product with id: %s", productId));
+        String productName = df.first().getAs("product_name");
+        if (productName.length() > 60) productName = productName.substring(0, 60) + "...";
         return ProductStdDto.builder()
                 .productId(productId)
-                .productName(df.first().getAs("product_name"))
-                .price(df.first().getAs("price"))
+                .productName(productName)
+                .price(((BigDecimal) df.first().getAs("price")).doubleValue())
+                .discount(((BigDecimal) df.first().getAs("discount")).doubleValue())
                 .quantity(df.first().getAs("quantity"))
-                .discount(df.first().getAs("discount"))
                 .build();
     }
 

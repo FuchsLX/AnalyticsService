@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 public final class ProductStdDto {
     private String productId;
     private String productName;
-    private BigDecimal price;
-    private BigDecimal discount;
+    private double price;
+    private double discount;
     private Long quantity;
 }

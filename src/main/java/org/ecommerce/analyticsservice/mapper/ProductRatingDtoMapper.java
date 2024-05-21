@@ -7,17 +7,19 @@ import org.ecommerce.analyticsservice.dtos.ProductRatingDto;
 public final class ProductRatingDtoMapper implements MapFunction<Row, ProductRatingDto> {
 
     @Override
-    public ProductRatingDto call(Row value) throws Exception {
+    public ProductRatingDto call(Row row) throws Exception {
+        String productName = row.getAs("product_name");
+        if (productName.length() > 20) productName = productName.substring(0, 20) + "...";
         return ProductRatingDto.builder()
-                .productId(value.getAs("product_id"))
-                .productName(value.getAs("product_name"))
-                .ratingAvg( value.getAs("rating_avg"))
-                .ratingCount(value.getAs("rating_count"))
-                .oneStarRatingCount(value.getAs("one_star_rating_count"))
-                .twoStarRatingCount(value.getAs("two_star_rating_count"))
-                .threeStarRatingCount(value.getAs("three_star_rating_count"))
-                .fourStarRatingCount(value.getAs("four_star_rating_count"))
-                .fiveStarRatingCount(value.getAs("five_star_rating_count"))
+                .productId(row.getAs("product_id"))
+                .productName(productName)
+                .ratingAvg( row.getAs("rating_avg"))
+                .ratingCount(row.getAs("rating_count"))
+                .oneStarRatingCount(row.getAs("one_star_rating_count"))
+                .twoStarRatingCount(row.getAs("two_star_rating_count"))
+                .threeStarRatingCount(row.getAs("three_star_rating_count"))
+                .fourStarRatingCount(row.getAs("four_star_rating_count"))
+                .fiveStarRatingCount(row.getAs("five_star_rating_count"))
                 .build();
     }
 }

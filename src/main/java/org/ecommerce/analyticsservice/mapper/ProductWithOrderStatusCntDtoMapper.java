@@ -8,9 +8,11 @@ public final class ProductWithOrderStatusCntDtoMapper implements MapFunction<Row
 
     @Override
     public ProductWithOrderStatusCountDto call(Row row) throws Exception {
+        String productName = row.getAs("product_name");
+        if (productName.length() > 20) productName = productName.substring(0, 20) + "...";
         return ProductWithOrderStatusCountDto.builder()
                 .productId(row.getAs("product_id"))
-                .productName(row.getAs("product_name"))
+                .productName(productName)
                 .processingCount(row.getAs("processing_quantity"))
                 .cancelledCount(row.getAs("cancelled_quantity"))
                 .completedCount(row.getAs("completed_quantity"))

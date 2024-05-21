@@ -60,6 +60,7 @@ public class CategoryAnalyticsServiceImpl implements CategoryAnalyticsService {
     @Override
     public List<CategoryRatingDto> getTopHighestRatedCategory(int numRecords) {
         return this.extractCategoryRatingDf()
+                .filter(col("rating_count").gt(0))
                 .orderBy(col("rating_avg").desc())
                 .limit(numRecords)
                 .map(new CategoryRatingDtoMapper(), Encoders.bean(CategoryRatingDto.class))

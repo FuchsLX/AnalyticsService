@@ -127,13 +127,17 @@ public class ProductAnalyticsJobImpl implements ProductAnalyticsJob {
                 .join(orderDf, orderItemDf.col("order_id").equalTo(orderDf.col("order_id")), "inner")
                 .drop(orderItemDf.col("order_id"));
 
+        orderItemDf.show(false);
+
         Dataset<Row> repeatBuyersDf = orderItemDf
                 .filter(col("order_status").equalTo("COMPLETED"))
                 .groupBy(col("product_id"), col("customer_id"))
                 .agg(count(col("order_item_id")).as("order_count"))
                 .filter(col("order_count").gt(1))
                 .groupBy(col("product_id"))
-                .agg(count(col("customer_id")).as("repeat_buyers_count"));
+                .agg(count(col("customer_id")).as("repeat_buyers_count"))
+                        .withColumnRenamed("product_id", "productx_id");
+        repeatBuyersDf.show(false);
 
         orderItemDf = orderItemDf
                 .groupBy(col("product_id"))
@@ -148,19 +152,21 @@ public class ProductAnalyticsJobImpl implements ProductAnalyticsJob {
                         sum(when(col("order_status").equalTo("PROCESSING"), col("total_price_after_discount")).otherwise(0)).as("processing_total_price"),
                         count_distinct(when(col("order_status").equalTo("COMPLETED"), col("customer_id"))).as("unique_buyers_count")
                 );
+        logger.debug("oderItem before join repeatBuyersDf:");
+        orderItemDf.show(false);
 
         if (repeatBuyersDf.count() == 0) {
             orderItemDf = orderItemDf
                     .withColumn("repeat_buyers_count", lit(0));
         } else {
             orderItemDf = orderItemDf
-                    .join(repeatBuyersDf, repeatBuyersDf.col("product_id").equalTo(orderItemDf.col("product_id")), "left_outer")
-                    .drop(repeatBuyersDf.col("product_id"));
+                    .join(repeatBuyersDf, repeatBuyersDf.col("productx_id").equalTo(orderItemDf.col("product_id")), "left_outer")
+                            .drop(repeatBuyersDf.col("productx_id"));
         }
         orderItemDf = orderItemDf.withColumn(
                 "reorder_rate",
                         when(col("unique_buyers_count").equalTo(0), lit(null))
-                                .otherwise(col("repeat_buyers_count").divide(col("unique_buyers_count").multiply(100)))
+                                .otherwise(col("repeat_buyers_count").divide(col("unique_buyers_count")).multiply(lit(100)))
         );
 
         productDf = productDf
@@ -197,8 +203,9 @@ public class ProductAnalyticsJobImpl implements ProductAnalyticsJob {
     }
 
     private void ratingAnalyticsTask(Dataset<Row> productDf, Dataset<Row> ratingDf) {
-        Dataset<Row> ratingAggDf = ratingDf
-                .groupBy(col("product_id"))
+        productDf = productDf
+                .join(ratingDf, productDf.col("product_id").equalTo(ratingDf.col("product_id")), "left_outer")
+                .groupBy(productDf.col("product_id"), col("product_name"))
                 .agg(
                         count(when(col("rating").equalTo(1), true)).alias("one_star_rating_count"),
                         count(when(col("rating").equalTo(2), true)).alias("two_star_rating_count"),
@@ -208,11 +215,6 @@ public class ProductAnalyticsJobImpl implements ProductAnalyticsJob {
                         avg(col("rating")).alias("rating_avg"),
                         count(col("rating_id")).alias("rating_count")
                 );
-
-        productDf = productDf
-                .select(col("product_id"), col("product_name"))
-                .join(ratingAggDf, productDf.col("product_id").equalTo(ratingDf.col("product_id")), "left")
-                .drop(ratingDf.col("product_id"));
         logger.debug("TRANSFORMED `{}` table", ProductTable.PRODUCT_RATING_WH);
         productDf.printSchema();
         productDf.show(5, false);
