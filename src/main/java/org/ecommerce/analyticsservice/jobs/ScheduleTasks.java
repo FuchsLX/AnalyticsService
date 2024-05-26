@@ -12,7 +12,7 @@ public class ScheduleTasks {
   private static final Logger logger =
       LoggerFactory.getLogger(ScheduleTasks.class);
 
-  private static final long scheduleTime = 29000;
+  private static final long scheduleTime = 1800000;
 
   private final OrderAnalyticsJob orderAnalyticsJob;
   private final ProductAnalyticsJob productAnalyticsJob;
